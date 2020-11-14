@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserPost;
+use App\Services\UserService;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -20,11 +21,18 @@ class UserController extends Controller
 
     public function store(StoreUserPost $request)
     {
-        User::create($request->all());
+        // User::create($request->all());
 
-        return redirect()->route('users.index')
-        ->withSucesso('Salvo com sucesso');
-    }
+        // return redirect()->route('users.index')
+        // ->withSucesso('Salvo com sucesso');
+        $user = UserService::store($request->all());
+        if($user){
+            return redirect()->route('users.index')
+            ->withSucesso('Salvo com Sucesso');
+        }
+            return redirect()->route('users.index')
+            ->withErro('Ocorreu um erro ao salvar');
+        }
 
     public function show($id)
     {
