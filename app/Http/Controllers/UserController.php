@@ -22,7 +22,8 @@ class UserController extends Controller
     {
         User::create($request->all());
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')
+        ->withSucesso('Salvo com sucesso');
     }
 
     public function show($id)
